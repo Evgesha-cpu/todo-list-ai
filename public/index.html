@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Личный список задач с фильтрами, прогрессом и сохранением в браузере.">
+  <meta name="theme-color" content="#f3f5f0">
+  <title>Список задач</title>
+  <link rel="icon" href="./favicon.png" type="image/png">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <span class="brand"><span class="brand-icon" aria-hidden="true"></span>Мои задачи</span>
+      <time id="today" class="today"></time>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="overview" aria-labelledby="page-title">
+      <div class="intro">
+        <h1 id="page-title">Список задач</h1>
+        <p>Записывайте дела и следите за прогрессом.</p>
+      </div>
+      <div class="progress-card">
+        <div class="progress-copy">
+          <span>Выполнено</span>
+          <div class="progress-total">
+            <strong id="done-count">0</strong><span>из <span id="total-count">0</span></span>
+          </div>
+        </div>
+        <div id="progress" class="progress-ring" role="progressbar" aria-label="Доля выполненных задач" aria-valuenow="0">
+          <span id="percentage" aria-hidden="true">0%</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="workspace" aria-labelledby="list-title">
+      <form id="task-form" class="task-form" novalidate>
+        <label for="task-input">Новая задача</label>
+        <div class="form-row">
+          <input id="task-input" name="task" type="text" placeholder="Например, подготовить отчёт"
+            autocomplete="off" maxlength="160" required aria-describedby="input-error">
+          <button class="add-button" type="submit"><span class="plus-icon" aria-hidden="true"></span>Добавить</button>
+        </div>
+        <p id="input-error" class="input-error" role="alert"></p>
+      </form>
+      <noscript><p class="notice">Включите JavaScript, чтобы управлять задачами.</p></noscript>
+      <p id="storage-notice" class="notice" role="status" hidden></p>
+
+      <div class="list-heading">
+        <h2 id="list-title">Задачи</h2>
+        <div class="filters" role="group" aria-label="Фильтр задач">
+          <button type="button" data-filter="all" aria-pressed="true">Все</button>
+          <button type="button" data-filter="active" aria-pressed="false">Активные</button>
+          <button type="button" data-filter="done" aria-pressed="false">Готовые</button>
+        </div>
+      </div>
+      <ul id="task-list" class="task-list"></ul>
+      <div id="empty-state" class="empty-state">
+        <span class="empty-icon" aria-hidden="true"><span></span></span>
+        <p id="empty-title">Пока нет задач</p>
+        <span id="empty-description">Добавьте первое дело в поле выше.</span>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span class="local-icon" aria-hidden="true"></span>
+      <span>Задачи хранятся в этом браузере</span>
+    </footer>
+    <p id="announcement" class="visually-hidden" role="status"></p>
+  </main>
+
+  <template id="task-template">
+    <li class="task">
+      <label class="task-label">
+        <input type="checkbox" class="task-check">
+        <span class="check-icon" aria-hidden="true"></span>
+        <span class="task-text"></span>
+      </label>
+      <button type="button" class="delete-button"><span class="trash-icon" aria-hidden="true"></span></button>
+    </li>
+  </template>
+</body>
+</html>
